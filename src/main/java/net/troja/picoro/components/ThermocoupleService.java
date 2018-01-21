@@ -1,4 +1,4 @@
-package net.troja.picoro.gpio;
+package net.troja.picoro.components;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
