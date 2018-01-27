@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import com.pi4j.component.lcd.LCDTextAlignment;
 import com.pi4j.component.lcd.impl.I2CLcdDisplay;
 
 @Component
@@ -39,5 +40,13 @@ public class Lcd {
             LOGGER.error("Could not start LCD", e);
             return null;
         }
+    }
+
+    public void writeRoastTemperatur(final Double temperature) {
+        display.write(0, "Tro " + temperature + "C", LCDTextAlignment.ALIGN_RIGHT);
+    }
+
+    public void setFan(final int value) {
+        display.write(1, "Fan " + value + "%");
     }
 }

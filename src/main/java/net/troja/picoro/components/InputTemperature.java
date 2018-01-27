@@ -22,6 +22,7 @@ import com.pi4j.io.w1.W1Master;
 @Component
 public class InputTemperature {
     private static final Logger LOGGER = LoggerFactory.getLogger(InputTemperature.class);
+
     @Autowired
     private TemperatureSensor sensor;
     @Autowired

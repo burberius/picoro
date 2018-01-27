@@ -50,7 +50,6 @@ public class Leds {
     }
 
     private GpioPinDigitalOutput getLed(final Pin gpioPin, final String name) {
-        LOGGER.info("Init {}", gpioPin.getName());
         final GpioController gpio = GpioFactory.getInstance();
         final GpioPinDigitalOutput outputPin = gpio.provisionDigitalOutputPin(gpioPin, name, PinState.LOW);
         outputPin.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);

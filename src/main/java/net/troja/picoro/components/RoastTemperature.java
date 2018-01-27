@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.pi4j.io.spi.SpiChannel;
 import com.pi4j.io.spi.SpiDevice;
@@ -18,15 +18,17 @@ import com.pi4j.io.spi.SpiFactory;
 /**
  * Code used from http://www.weargenius.in/thermocouple-interfacing-max31855.html
  */
-@Service
-public class ThermocoupleService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ThermocoupleService.class);
+@Component
+public class RoastTemperature {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RoastTemperature.class);
 
     @Autowired
     private SpiDevice spiDevice;
+    @Autowired
+    private Lcd display;
 
-    public ThermocoupleService() {
-        LOGGER.info("Starting Thermocouple Service");
+    public RoastTemperature() {
+        LOGGER.info("Roast temperature component started");
     }
 
     @Bean
@@ -41,11 +43,11 @@ public class ThermocoupleService {
     }
 
     @Scheduled(fixedRate = 5000)
-    public void print() {
+    public void updateDisplay() {
         if(spiDevice != null) {
             final Optional<Double> value = getConversionValue();
             if(value.isPresent()) {
-                LOGGER.info("Temperature {}", value);
+                display.writeRoastTemperatur(value.get());
             }
         }
     }
